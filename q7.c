@@ -1,5 +1,6 @@
 #include <stdio.h>
 #include <stdlib.h>
+#include <string.h>
 #include <time.h>
 
 char RandomAlphabet(void)
@@ -20,12 +21,13 @@ void checkingStr(char guess[5], char toBeChecked[6][5])
 {
     int found = 0;
     int score = 0;
+    int length = strlen(guess);
     for (int i = 0; i < 6; i++)
     {
-        for (int j = 0; j < 5 - 4; j++)
+        for (int j = 0; j <= 5 - length; j++)
         {
             int match = 1;
-            for (int k = 0; k < 4; k++)
+            for (int k = 0; k < length; k++)
             {
                 if (toBeChecked[i][j + k] != guess[k])
                 {
@@ -42,7 +44,7 @@ void checkingStr(char guess[5], char toBeChecked[6][5])
     }
     if (found == 1)
     {
-        printf("Good... Horizontally");
+        printf("Good... Horizontally\n");
         score++;
         found = 1;
     }
@@ -51,10 +53,10 @@ void checkingStr(char guess[5], char toBeChecked[6][5])
 
         for (int i = 0; i < 6; i++)
         {
-            for (int j = 0; j < 5 - 4; j++)
+            for (int j = 0; j < 5 - length; j++)
             {
                 int match = 1;
-                for (int k = 0; k < 4; k++)
+                for (int k = 0; k < length; k++)
                 {
                     if (toBeChecked[i + k][j] != guess[k])
                     {
@@ -71,20 +73,20 @@ void checkingStr(char guess[5], char toBeChecked[6][5])
         }
         if (found)
         {
-            printf("Good......Vertically");
+            printf("Good......Vertically\n");
             score++;
         }
-        else if (!found)
-        {
+        // else if (!found)
+        // {
 
-            printf("NOT found at all....");
-            score--;
-        }
+        // }
         else
         {
+            printf("NOT found at all....\n");
+            score--;
         }
     }
-    printf("Your current score : %d",score);
+    printf("Your current score : %d", score);
 }
 void end(char guess[4])
 {
@@ -107,6 +109,7 @@ void end(char guess[4])
 //======================----------MAIN()-----------===================================
 int main()
 {
+
     char alpha[6][5];
 
     srand(time(0));
@@ -131,13 +134,16 @@ int main()
         }
         printf("\n");
     }
-   
-   
+
     char guess[4];
-    printf("Enter a string");
-    scanf("%4s", guess);
-    end(guess);
-    checkingStr(guess, alpha);
+    while (1)
+    {
+
+        printf("Enter a string\n");
+        scanf("%4s", guess);
+        end(guess);
+        checkingStr(guess, alpha);
+    }
 
     return 0;
 }
